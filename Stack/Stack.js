@@ -4,7 +4,7 @@ export default class Stack {
     }
 
     static type() {
-        return 'Stack';
+        return 'stack';
     }
 
     get size() {

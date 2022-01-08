@@ -4,7 +4,7 @@ export default class Queue {
     }
 
     static type() {
-        return 'Queue';
+        return 'queue';
     }
 
     // methods
