@@ -1,4 +1,6 @@
-export default class Queue {
+class Queue<T> {
+    items: T[];
+
     constructor() {
         this.items = [];
     }
@@ -16,7 +18,7 @@ export default class Queue {
 
     // Inserts the specified element into this queue
     // returns queue size
-    add(element) {
+    add(element: T) {
         return this.items.push(element);
     }
 
@@ -32,3 +34,5 @@ export default class Queue {
         return this.items.shift()
     }
 }
+
+module.exports = Queue;

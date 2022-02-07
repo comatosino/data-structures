@@ -1,21 +1,21 @@
-class ListNode<T> {
-  public data: T;
-  public next: ListNode<T> | null;
+type SingleNodeType = SingleListNode<any> | null;
 
-    constructor(data: T) {
-      this.data = data;
-      this.next = null;
-    }
+class SingleListNode<T> {
+  public data: T;
+  public next: SingleNodeType;
+
+  constructor(data: T) {
+    this.data = data;
+    this.next = null;
+  }
 }
 
-export default class SinglyLinkedList<T> {
-    private _head: ListNode<T> | null;
-    protected size: number;
+class SinglyLinkedList<T> {
+  private head: SingleNodeType;
+  protected size: number;
 
-    constructor() {
-
-    }
-
-
-
+  constructor() {
+    this.head = null;
+    this.size = 0;
+  }
 }

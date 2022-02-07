@@ -1,16 +1,21 @@
-export default class TreeNode {
-  constructor(data) {
+type TreePointerType = TreeNode<any> | null;
+
+class TreeNode<T> {
+  data: T;
+  left: TreePointerType;
+  right: TreePointerType;
+
+  constructor(data: T) {
     this.data = data;
     this.left = null;
-    this.right = null;s
+    this.right = null;
   }
 }
 
-export default class BinarySearchTree {
-    constructor() {
-      this.root = null;
-    }
+class BinarySearchTree {
+  private root: TreePointerType;
 
-    // methods
-
+  constructor() {
+    this.root = null;
+  }
 }
