@@ -1,0 +1,27 @@
+{
+  "name": "data-structures",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/comatosino/data-structures.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/comatosino/data-structures/issues"
+  },
+  "homepage": "https://github.com/comatosino/data-structures#readme",
+  "devDependencies": {
+    "jest": "^27.5.0",
+    "ts-node": "^10.4.0",
+    "typescript": "^4.5.5"
+  },
+  "dependencies": {
+    "@types/jest": "^27.4.0"
+  }
+}
