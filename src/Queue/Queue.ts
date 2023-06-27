@@ -51,25 +51,25 @@ export class Queue<T> {
   }
 
   public toString() {
-    let str = '';
+    let result = '';
     let current = this.#_head;
     while (current != null) {
-      str += current.data;
+      result += current.data;
       if (current.next !== null) {
-        str += ' -> ';
+        result += ' -> ';
       }
       current = current.next;
     }
-    return str;
+    return result;
   }
 
   public toArray() {
-    const arr = [] as T[];
+    const result = [] as T[];
     let current = this.#_head;
     while (current !== null) {
-      arr.push(current.data);
+      result.push(current.data);
       current = current.next;
     }
-    return arr;
+    return result;
   }
 }
