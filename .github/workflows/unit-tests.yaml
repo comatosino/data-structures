@@ -1,0 +1,29 @@
+name: Unit tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: print trigger
+        run: echo "trigger:" ${{github.event_name }}
+
+      - name: clone repo
+        uses: actions/checkout@v3
+
+      - name: setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 'latest'
+          cache: 'yarn'
+
+      - name: install dependencies
+        run: yarn
+
+      - name: run tests
+        run: yarn test
