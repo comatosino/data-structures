@@ -2,7 +2,7 @@ import { Stack } from '../src/Stack';
 
 describe('Stack', () => {
   // instantiate
-  it('can create new instance', () => {
+  it('creates new instance', () => {
     const data = [1, 2, 3, 4, 5];
 
     const stack = new Stack(); // empty stack

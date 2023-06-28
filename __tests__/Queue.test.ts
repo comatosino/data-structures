@@ -1,7 +1,7 @@
 import { Queue } from '../src/Queue';
 
 describe('Queue', () => {
-  it('can create new instance', () => {
+  it('creates new instance', () => {
     const data = [1, 2, 3, 4, 5];
 
     const queue = new Queue(); // empty queue
