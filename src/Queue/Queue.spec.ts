@@ -3,7 +3,7 @@ import { expect } from "chai";
 
 import { Queue } from ".";
 
-describe("Queue class", function () {
+describe("Queue", function () {
   it("creates a new queue from no arguments", function () {
     const queue = new Queue();
 
@@ -39,7 +39,7 @@ describe("Queue class", function () {
     expect(queue.length).to.equal(data.length);
   });
 
-  test("peek() returns the value of the head node", function () {
+  test("peek() returns the value at the head of the list", function () {
     const data = [1, 2, 3, 4, 5];
     const empty = new Queue();
     const queues = [new Queue(...data), new Queue(data[0]), new Queue(data)];

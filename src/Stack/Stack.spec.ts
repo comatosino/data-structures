@@ -1,104 +1,98 @@
-import { describe, it } from "mocha";
+import { describe, it, test } from "mocha";
 import { expect } from "chai";
 
 import { Stack } from ".";
 
-// describe("Stack", () => {
-//   // instantiate
-//   it("can create new instance", () => {
-//     const data = [1, 2, 3, 4, 5];
+describe("Stack", function () {
+  it("creates a new stack from no arguments", function () {
+    const stack = new Stack();
 
-//     const stack = new Stack(); // empty stack
-//     const stack_1 = new Stack(data[0]); // from 1 arg
-//     const stack_args = new Stack(...data); // from args
-//     const stack_arr = new Stack(data); // from array
+    expect(stack).to.be.instanceOf(Stack);
+    expect(stack.empty).to.be.true;
+    expect(stack.size).to.equal(0);
+  });
 
-//     expect(stack).toBeInstanceOf(Stack);
-//     expect(stack.size).toBe(0);
-//     expect(stack.empty).toBe(true);
+  it("creates a new stack from 1 argument", function () {
+    const data = 42;
+    const stack = new Stack(data);
 
-//     expect(stack_1).toBeInstanceOf(Stack);
-//     expect(stack_1.size).toBe(1);
-//     expect(stack_1.empty).toBe(false);
+    expect(stack).to.be.instanceOf(Stack);
+    expect(stack.empty).to.be.false;
+    expect(stack.size).to.equal(1);
+  });
 
-//     expect(stack_arr).toBeInstanceOf(Stack);
-//     expect(stack_arr.size).toBe(data.length);
-//     expect(stack_arr.empty).toBe(false);
+  it("creates a new stack from many arguments", function () {
+    const data = [1, 2, 3, 4, 5];
+    const stack = new Stack(...data);
 
-//     expect(stack_args).toBeInstanceOf(Stack);
-//     expect(stack_args.size).toBe(data.length);
-//     expect(stack_args.empty).toBe(false);
-//   });
+    expect(stack).to.be.instanceOf(Stack);
+    expect(stack.empty).to.be.false;
+    expect(stack.size).to.equal(data.length);
+  });
 
-//   // peek
-//   it("can peek at the top element", () => {
-//     const data = [1, 2, 3, 4, 5];
-//     const stack = new Stack(data);
+  it("creates a new stack from an array", function () {
+    const data = [1, 2, 3, 4, 5];
+    const stack = new Stack(data);
 
-//     expect(stack.peek()).toBe(data[data.length - 1]);
-//   });
+    expect(stack).to.be.instanceOf(Stack);
+    expect(stack.empty).to.be.false;
+    expect(stack.size).to.equal(data.length);
+  });
 
-//   it("returns null when calling peek on an empty stack", () => {
-//     const stack = new Stack();
+  test("peek() returns data at the top of the stack", function () {
+    const data = [1, 2, 3, 4, 5];
+    const empty = new Stack();
+    const stack = new Stack(data);
 
-//     expect(stack.peek()).toBeNull();
-//   });
+    expect(empty.peek()).to.be.null;
+    expect(stack.peek()).to.equal(data[data.length - 1]);
+  });
 
-//   // push
-//   it("can push a new element", () => {
-//     const value = "hello";
-//     const stack = new Stack();
+  test("push() adds data to top of stack", function () {
+    const data = 42;
+    const stack = new Stack();
 
-//     stack.push(value);
+    stack.push(data);
+    expect(stack.peek()).to.equal(data);
+  });
 
-//     expect(stack.size).toBe(1);
-//     expect(stack.empty).toBe(false);
-//     expect(stack.peek()).toBe(value);
-//   });
+  test("pop() removes and returns data from top of stack", function () {
+    const data = [1, 2, 3, 4, 5];
+    const empty = new Stack();
+    const stack = new Stack(data);
 
-//   // pop
-//   it("can remove and return the top element", () => {
-//     const data = [1, 2, 3, 4, 5];
-//     const stack = new Stack(data);
+    expect(empty.peek()).to.be.null;
 
-//     let i = data.length - 1;
-//     while (!stack.empty) {
-//       expect(stack.pop()).toBe(data[i]);
-//       i--;
-//     }
-//   });
+    let i = data.length - 1;
+    while (i >= 0) {
+      expect(stack.pop()).to.equal(data[i]);
+      i--;
+    }
+  });
 
-//   it("returns null when calling pop on an empty stack", () => {
-//     const stack = new Stack();
+  it("implements toString method", function () {
+    const data = [1, 2, 3, 4, 5];
+    const stack = new Stack();
+    const stack_1 = new Stack(data[0]);
+    const stack_args = new Stack(...data);
+    const stack_arr = new Stack(data);
 
-//     expect(stack.pop()).toBeNull();
-//   });
+    expect(stack.toString()).to.equal("");
+    expect(stack_1.toString()).to.equal("1");
+    expect(stack_args.toString()).to.equal("5 -> 4 -> 3 -> 2 -> 1");
+    expect(stack_arr.toString()).to.equal("5 -> 4 -> 3 -> 2 -> 1");
+  });
 
-//   // toString
-//   it("implements toString", () => {
-//     const data = [1, 2, 3, 4, 5];
-//     const stack = new Stack();
-//     const stack_1 = new Stack(data[0]);
-//     const stack_args = new Stack(...data);
-//     const stack_arr = new Stack(data);
+  it("implements toArray method", function () {
+    const data = ["a", "b", "c", "d", "e"];
+    const stack = new Stack(data);
+    data.reverse();
 
-//     expect(stack.toString()).toBe("");
-//     expect(stack_1.toString()).toBe("1");
-//     expect(stack_args.toString()).toBe("5 -> 4 -> 3 -> 2 -> 1");
-//     expect(stack_arr.toString()).toBe("5 -> 4 -> 3 -> 2 -> 1");
-//   });
+    const result = stack.toArray();
 
-//   // toArray
-//   it("implements toArray", () => {
-//     const data = ["a", "b", "c", "d", "e"];
-//     const stack = new Stack(data);
-//     data.reverse();
-
-//     const result = stack.toArray();
-
-//     expect(Array.isArray(result)).toBe(true);
-//     data.forEach((el, idx) => {
-//       expect(result[idx]).toBe(el);
-//     });
-//   });
-// });
+    expect(Array.isArray(result)).to.equal(true);
+    data.forEach((el, idx) => {
+      expect(result[idx]).to.equal(el);
+    });
+  });
+});
