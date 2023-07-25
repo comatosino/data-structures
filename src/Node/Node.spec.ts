@@ -3,8 +3,8 @@ import { expect } from "chai";
 
 import { SinglyLinkedNode, DoublyLinkedNode } from ".";
 
-describe("Singly Linked Node class", function () {
-  it("instantiates a new Singly Linked Node with given data", function () {
+describe("Singly Linked Node", function () {
+  it("creates a new singly linked node with given data", function () {
     const data = 42;
     const node = new SinglyLinkedNode(data);
 
@@ -13,8 +13,8 @@ describe("Singly Linked Node class", function () {
   });
 });
 
-describe("Doubly Linked Node class", function () {
-  it("instantiates a new Doubly Linked Node with given data", function () {
+describe("Doubly Linked Node", function () {
+  it("creates a new doubly linked node with given data", function () {
     const data = 42;
     const node = new DoublyLinkedNode(data);
 
