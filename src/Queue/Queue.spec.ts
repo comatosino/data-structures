@@ -50,130 +50,82 @@ describe("Queue class", function () {
     });
   });
 
-  //   it("", function () {});
+  test("enqueue() adds data to the end of the list", function () {
+    const value = 42;
+    const data = [1, 2, 3, 4, 5];
+    const empty = new Queue();
+    const queue = new Queue(data);
 
-  //   it("", function () {});
+    // adding to an empty queue => head = tail
+    empty.enqueue(value);
+    expect(empty.peek()).to.equal(value);
 
-  //   it("", function () {});
+    let result;
+    queue.enqueue(value);
+    while (!queue.empty) {
+      result = queue.dequeue();
+    }
+    expect(result).to.equal(value);
+  });
 
-  //   it("", function () {});
+  test("dequeue() removes head and returns its data", function () {
+    const data = [1, 2, 3, 4, 5];
+    const empty = new Queue();
+    const queue = new Queue(data);
 
-  //   it("", function () {});
+    const emptyResult = empty.dequeue();
+    expect(emptyResult).to.be.null;
 
-  //   it("", function () {});
+    const result = queue.dequeue();
+    expect(result).to.equal(data[0]);
+  });
+
+  it("updates the length field", function () {
+    const data = [1, 2, 3, 4, 5];
+    const queue = new Queue(data);
+
+    queue.dequeue();
+    expect(queue.length).to.equal(data.length - 1);
+
+    queue.enqueue(5);
+    expect(queue.length).to.equal(data.length);
+  });
+
+  it("updates the empty field", function () {
+    it("updates the empty property", () => {
+      const data = 42;
+      const queue = new Queue();
+
+      expect(queue.empty).to.be.true;
+
+      queue.enqueue(data);
+      expect(queue.empty).to.be.false;
+
+      queue.dequeue();
+      expect(queue.empty).to.be.true;
+    });
+  });
+
+  it("implements toString method", function () {
+    const data = ["a", "b", "c", "d", "e"];
+    const queue_empty = new Queue();
+    const queue_1 = new Queue(data[0]);
+    const queue_args = new Queue(...data);
+    const queue_arr = new Queue(data);
+
+    expect(queue_empty.toString()).to.equal("");
+    expect(queue_1.toString()).to.equal("a");
+    expect(queue_args.toString()).to.equal("a -> b -> c -> d -> e");
+    expect(queue_arr.toString()).to.equal("a -> b -> c -> d -> e");
+  });
+
+  it("implements toArray method", function () {
+    const data = ["a", "b", "c", "d", "e"];
+    const queue = new Queue(data);
+
+    const result = queue.toArray();
+
+    expect(Array.isArray(result)).to.be.true;
+    expect(result).to.deep.equal(data);
+  });
 });
-
-// describe("Queue", () => {
-//   it("can peek at the head node", () => {
-//     const data = [5, 4, 3, 2, 1];
-//     const queueInits = [
-//       new Queue(data[0]),
-//       new Queue(data),
-//       new Queue(...data),
-//     ];
-
-//     queueInits.forEach((queue) => {
-//       expect(queue.peek()).toBe(data[0]);
-//     });
-//   });
-
-//   test("calling peek on an empty list returns null", () => {
-//     const queue = new Queue();
-
-//     expect(queue.empty).toBe(true);
-//     expect(queue.length).toBe(0);
-//     expect(queue.peek()).toBeNull();
-//   });
-
-//   it("can add data to an empty list", () => {
-//     const value = 5;
-//     const queue = new Queue();
-
-//     queue.enqueue(value);
-
-//     expect(queue.length).toBe(1);
-//     expect(queue.empty).toBe(false);
-//     expect(queue.peek()).toBe(value);
-//   });
-
-//   it("adds data to the end of list", () => {
-//     const value = 4;
-//     const data = [1, 2, 3];
-//     const queue = new Queue(data);
-
-//     queue.enqueue(value);
-
-//     // empty the list to get to the last element
-//     let el: (typeof data)[number] | null = null;
-//     while (queue.length > 0) {
-//       el = queue.dequeue();
-//     }
-
-//     expect(el).toBe(value);
-//   });
-
-//   it("can remove data from head of the list", () => {
-//     const data = [1, 2, 3, 4, 5];
-//     const queue = new Queue(data);
-
-//     while (queue.length > 0) {
-//       expect(queue.dequeue()).toBe(data.shift());
-//     }
-//   });
-
-//   test("calling dequeue on an empty list returns null", () => {
-//     const queue = new Queue();
-
-//     const result = queue.dequeue();
-
-//     expect(result).toBeNull();
-//   });
-
-//   it("updates the length property", () => {
-//     const data = [1, 2, 3, 4, 5];
-//     const queue = new Queue(data);
-
-//     queue.dequeue();
-//     expect(queue.length).toBe(data.length - 1);
-
-//     queue.enqueue(5);
-//     expect(queue.length).toBe(data.length);
-//   });
-
-//   it("updates the empty property", () => {
-//     const queue = new Queue(1);
-
-//     queue.dequeue();
-//     expect(queue.empty).toBe(true);
-
-//     queue.enqueue(1);
-//     expect(queue.empty).toBe(false);
-//   });
-
-//   it("implements toString method", () => {
-//     const data = ["a", "b", "c", "d", "e"];
-//     const queue = new Queue();
-//     const queue_1 = new Queue(data[0]);
-//     const queue_args = new Queue(...data);
-//     const queue_arr = new Queue(data);
-
-//     expect(queue.toString()).toBe("");
-//     expect(queue_1.toString()).toBe("a");
-//     expect(queue_args.toString()).toBe("a -> b -> c -> d -> e");
-//     expect(queue_arr.toString()).toBe("a -> b -> c -> d -> e");
-//   });
-
-//   it("implements toArray method", () => {
-//     const data = ["a", "b", "c", "d", "e"];
-//     const queue = new Queue(data);
-
-//     const result = queue.toArray();
-
-//     expect(Array.isArray(result)).toBe(true);
-//     result.forEach((item, idx) => {
-//       expect(item).toBe(data[idx]);
-//     });
-//   });
-
-//   // it('', () => {});
-// });
