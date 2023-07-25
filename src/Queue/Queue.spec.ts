@@ -1,73 +1,69 @@
-import { describe, it } from "mocha";
+import { describe, it, test } from "mocha";
 import { expect } from "chai";
 
 import { Queue } from ".";
 
 describe("Queue class", function () {
-  describe("instantiation", function () {
-    it("creates a new queue from no arguments", function () {
-      const queue = new Queue();
+  it("creates a new queue from no arguments", function () {
+    const queue = new Queue();
 
-      expect(queue).to.be.instanceOf(Queue);
-      expect(queue.empty).to.be.true;
-      expect(queue.length).to.equal(0);
-    });
+    expect(queue).to.be.instanceOf(Queue);
+    expect(queue.empty).to.be.true;
+    expect(queue.length).to.equal(0);
+  });
 
-    it("creates a new queue from 1 argument", function () {
-      const data = 42;
-      const queue = new Queue(data);
+  it("creates a new queue from 1 argument", function () {
+    const data = 42;
+    const queue = new Queue(data);
 
-      expect(queue).to.be.instanceOf(Queue);
-      expect(queue.empty).to.be.false;
-      expect(queue.length).to.equal(1);
-    });
+    expect(queue).to.be.instanceOf(Queue);
+    expect(queue.empty).to.be.false;
+    expect(queue.length).to.equal(1);
+  });
 
-    it("creates a new queue from many arguments", function () {
-      const data = [1, 2, 3, 4, 5];
-      const queue = new Queue(...data);
+  it("creates a new queue from many arguments", function () {
+    const data = [1, 2, 3, 4, 5];
+    const queue = new Queue(...data);
 
-      expect(queue).to.be.instanceOf(Queue);
-      expect(queue.empty).to.be.false;
-      expect(queue.length).to.equal(data.length);
-    });
+    expect(queue).to.be.instanceOf(Queue);
+    expect(queue.empty).to.be.false;
+    expect(queue.length).to.equal(data.length);
+  });
 
-    it("creates a new queue from an array", function () {
-      const data = [1, 2, 3, 4, 5];
-      const queue = new Queue(data);
+  it("creates a new queue from an array", function () {
+    const data = [1, 2, 3, 4, 5];
+    const queue = new Queue(data);
 
-      expect(queue).to.be.instanceOf(Queue);
-      expect(queue.empty).to.be.false;
-      expect(queue.length).to.equal(data.length);
+    expect(queue).to.be.instanceOf(Queue);
+    expect(queue.empty).to.be.false;
+    expect(queue.length).to.equal(data.length);
+  });
+
+  test("peek() returns the value of the head node", function () {
+    const data = [1, 2, 3, 4, 5];
+    const empty = new Queue();
+    const queues = [new Queue(...data), new Queue(data[0]), new Queue(data)];
+
+    expect(empty.peek()).to.be.null;
+    queues.forEach((q) => {
+      expect(q.peek()).to.equal(data[0]);
     });
   });
+
+  //   it("", function () {});
+
+  //   it("", function () {});
+
+  //   it("", function () {});
+
+  //   it("", function () {});
+
+  //   it("", function () {});
+
+  //   it("", function () {});
 });
 
 // describe("Queue", () => {
-//   it("can create new instance", () => {
-//     const data = [1, 2, 3, 4, 5];
-
-//     const queue = new Queue(); // empty queue
-//     const queue_1 = new Queue(data[0]); // from 1 arg
-//     const queue_args = new Queue(...data); // from args
-//     const queue_arr = new Queue(data); // from array
-
-//     // expect(queue).toBeInstanceOf(Queue);
-//     // expect(queue.length).toBe(0);
-//     // expect(queue.empty).toBe(true);
-
-//     expect(queue_1).toBeInstanceOf(Queue);
-//     expect(queue_1.length).toBe(1);
-//     expect(queue_1.empty).toBe(false);
-
-//     expect(queue_arr).toBeInstanceOf(Queue);
-//     expect(queue_arr.length).toBe(data.length);
-//     expect(queue_arr.empty).toBe(false);
-
-//     expect(queue_args).toBeInstanceOf(Queue);
-//     expect(queue_args.length).toBe(data.length);
-//     expect(queue_args.empty).toBe(false);
-//   });
-
 //   it("can peek at the head node", () => {
 //     const data = [5, 4, 3, 2, 1];
 //     const queueInits = [
