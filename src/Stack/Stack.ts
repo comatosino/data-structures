@@ -1,11 +1,11 @@
-import { SinglyLinkedNode as Node } from '../Node';
+import { SinglyLinkedNode as Node } from "../Node";
 
 export class Stack<T> {
   #_top: Node<T> | null = null;
   #_size: number = 0;
 
   constructor(init?: T | T[], ...rest: T[]) {
-    let args = Array.isArray(init) ? init : (Array.from(arguments) as T[]);
+    const args = Array.isArray(init) ? init : (Array.from(arguments) as T[]);
     args.forEach(this.push, this);
   }
 
@@ -39,12 +39,12 @@ export class Stack<T> {
   }
 
   public toString() {
-    let result = '';
+    let result = "";
     let current = this.#_top;
     while (current != null) {
       result += current.data;
       if (current.next !== null) {
-        result += ' -> ';
+        result += " -> ";
       }
       current = current.next;
     }
@@ -55,7 +55,7 @@ export class Stack<T> {
     const result = [] as T[];
     let current = this.#_top;
     while (current !== null) {
-      result.push(current.data);
+      result.push(current.data as T);
       current = current.next;
     }
     return result;

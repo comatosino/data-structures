@@ -1,4 +1,4 @@
-import { SinglyLinkedNode as Node } from '../Node';
+import { SinglyLinkedNode as Node } from "../Node";
 
 // FIFO
 export class Queue<T> {
@@ -7,7 +7,7 @@ export class Queue<T> {
   #_tail: Node<T> | null = null; // add to here
 
   constructor(init?: T | T[], ...rest: T[]) {
-    let args = Array.isArray(init) ? init : (Array.from(arguments) as T[]);
+    const args = Array.isArray(init) ? init : (Array.from(arguments) as T[]);
     args.forEach(this.enqueue, this);
   }
 
@@ -51,12 +51,12 @@ export class Queue<T> {
   }
 
   public toString() {
-    let result = '';
+    let result = "";
     let current = this.#_head;
     while (current != null) {
       result += current.data;
       if (current.next !== null) {
-        result += ' -> ';
+        result += " -> ";
       }
       current = current.next;
     }
@@ -67,7 +67,7 @@ export class Queue<T> {
     const result = [] as T[];
     let current = this.#_head;
     while (current !== null) {
-      result.push(current.data);
+      result.push(current.data as T);
       current = current.next;
     }
     return result;
