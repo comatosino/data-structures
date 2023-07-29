@@ -6,7 +6,9 @@
   "scripts": {
     "build": "yarn clear && tsc",
     "test": "ts-mocha src/**/*.spec.ts",
-    "clear": "rm -rf dist"
+    "clear": "rm -rf dist",
+    "lint": "eslint src",
+    "format": "prettier src --write"
   },
   "license": "MIT",
   "repository": {
@@ -21,11 +23,18 @@
   "homepage": "https://github.com/r0b-adams/data-structures#readme",
   "devDependencies": {
     "@tsconfig/recommended": "^1.0.2",
+    "@typescript-eslint/eslint-plugin": "^6.2.0",
+    "@typescript-eslint/parser": "^6.2.0",
     "@types/chai": "^4.3.5",
     "@types/mocha": "^10.0.1",
     "chai": "*",
+    "eslint": "^8.46.0",
+    "eslint-config-prettier": "^8.9.0",
+    "eslint-plugin-prettier": "^5.0.0",
     "mocha": "*",
+    "prettier": "^3.0.0",
     "ts-mocha": "^10.0.0",
+    "ts-node": "^10.9.1",
     "typescript": "^5.1.6"
   }
 }

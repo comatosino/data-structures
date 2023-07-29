@@ -1,10 +1,10 @@
-import { describe, it, test } from "mocha";
-import { expect } from "chai";
+import { describe, it, test } from 'mocha';
+import { expect } from 'chai';
 
-import { Queue } from ".";
+import { Queue } from '.';
 
-describe("Queue", function () {
-  it("creates a new queue from no arguments", function () {
+describe('Queue', function () {
+  it('creates a new queue from no arguments', function () {
     const queue = new Queue();
 
     expect(queue).to.be.instanceOf(Queue);
@@ -12,7 +12,7 @@ describe("Queue", function () {
     expect(queue.length).to.equal(0);
   });
 
-  it("creates a new queue from 1 argument", function () {
+  it('creates a new queue from 1 argument', function () {
     const data = 42;
     const queue = new Queue(data);
 
@@ -21,7 +21,7 @@ describe("Queue", function () {
     expect(queue.length).to.equal(1);
   });
 
-  it("creates a new queue from many arguments", function () {
+  it('creates a new queue from many arguments', function () {
     const data = [1, 2, 3, 4, 5];
     const queue = new Queue(...data);
 
@@ -30,7 +30,7 @@ describe("Queue", function () {
     expect(queue.length).to.equal(data.length);
   });
 
-  it("creates a new queue from an array", function () {
+  it('creates a new queue from an array', function () {
     const data = [1, 2, 3, 4, 5];
     const queue = new Queue(data);
 
@@ -39,7 +39,7 @@ describe("Queue", function () {
     expect(queue.length).to.equal(data.length);
   });
 
-  test("peek() returns the value at the head of the list", function () {
+  test('peek() returns the value at the head of the list', function () {
     const data = [1, 2, 3, 4, 5];
     const empty = new Queue();
     const queues = [new Queue(...data), new Queue(data[0]), new Queue(data)];
@@ -50,7 +50,7 @@ describe("Queue", function () {
     });
   });
 
-  test("enqueue() adds data to the end of the list", function () {
+  test('enqueue() adds data to the end of the list', function () {
     const value = 42;
     const data = [1, 2, 3, 4, 5];
     const empty = new Queue();
@@ -68,7 +68,7 @@ describe("Queue", function () {
     expect(result).to.equal(value);
   });
 
-  test("dequeue() removes head and returns its data", function () {
+  test('dequeue() removes head and returns its data', function () {
     const data = [1, 2, 3, 4, 5];
     const empty = new Queue();
     const queue = new Queue(data);
@@ -80,7 +80,7 @@ describe("Queue", function () {
     expect(result).to.equal(data[0]);
   });
 
-  it("updates the length field", function () {
+  it('updates the length field', function () {
     const data = [1, 2, 3, 4, 5];
     const queue = new Queue(data);
 
@@ -91,8 +91,8 @@ describe("Queue", function () {
     expect(queue.length).to.equal(data.length);
   });
 
-  it("updates the empty field", function () {
-    it("updates the empty property", () => {
+  it('updates the empty field', function () {
+    it('updates the empty property', () => {
       const data = 42;
       const queue = new Queue();
 
@@ -106,21 +106,21 @@ describe("Queue", function () {
     });
   });
 
-  it("implements toString method", function () {
-    const data = ["a", "b", "c", "d", "e"];
+  it('implements toString method', function () {
+    const data = ['a', 'b', 'c', 'd', 'e'];
     const queue_empty = new Queue();
     const queue_1 = new Queue(data[0]);
     const queue_args = new Queue(...data);
     const queue_arr = new Queue(data);
 
-    expect(queue_empty.toString()).to.equal("");
-    expect(queue_1.toString()).to.equal("a");
-    expect(queue_args.toString()).to.equal("a -> b -> c -> d -> e");
-    expect(queue_arr.toString()).to.equal("a -> b -> c -> d -> e");
+    expect(queue_empty.toString()).to.equal('');
+    expect(queue_1.toString()).to.equal('a');
+    expect(queue_args.toString()).to.equal('a -> b -> c -> d -> e');
+    expect(queue_arr.toString()).to.equal('a -> b -> c -> d -> e');
   });
 
-  it("implements toArray method", function () {
-    const data = ["a", "b", "c", "d", "e"];
+  it('implements toArray method', function () {
+    const data = ['a', 'b', 'c', 'd', 'e'];
     const queue = new Queue(data);
 
     const result = queue.toArray();

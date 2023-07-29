@@ -2,13 +2,16 @@ import { SinglyLinkedNode as Node } from '../Node';
 
 // FIFO
 export class Queue<T> {
-  #_length: number = 0;
   #_head: Node<T> | null = null; // remove from here
   #_tail: Node<T> | null = null; // add to here
+  #_length = 0;
 
   constructor(init?: T | T[], ...rest: T[]) {
-    let args = Array.isArray(init) ? init : (Array.from(arguments) as T[]);
-    args.forEach(this.enqueue, this);
+    if (Array.isArray(init)) {
+      init.forEach(this.enqueue, this);
+    } else if (init) {
+      [init, ...rest].forEach(this.enqueue, this);
+    }
   }
 
   get length() {
@@ -67,7 +70,7 @@ export class Queue<T> {
     const result = [] as T[];
     let current = this.#_head;
     while (current !== null) {
-      result.push(current.data);
+      result.push(current.data as T);
       current = current.next;
     }
     return result;
