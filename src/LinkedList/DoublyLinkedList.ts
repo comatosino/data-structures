@@ -103,6 +103,9 @@ export class LinkedList<T> {
     this.#_size++;
   }
 
+  /**
+   * Removes all of the elements from this list.
+   */
   clear() {
     this.#_head = null;
     this.#_tail = null;
