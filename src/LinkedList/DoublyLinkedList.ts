@@ -4,13 +4,17 @@ interface INode<T> {
   next: INode<T> | null;
 }
 
-// Doubly Linked List
+/**
+ * Doubly Linked List implementation
+ * Emulates behavior of Java 8 LinkedList class
+ */
 export class LinkedList<T> {
   #_Node = class Node<T> implements INode<T> {
     public prev: Node<T> | null = null;
     public next: Node<T> | null = null;
     constructor(public data: T) {}
   };
+
   #_head: INode<T> | null = null;
   #_tail: INode<T> | null = null;
   #_length = 0;
@@ -24,14 +28,19 @@ export class LinkedList<T> {
   }
 
   /**
-   * number of elements in the list
+   * @returns number of elements in the list
    */
   get length() {
     return this.#_length;
   }
 
-  // add at given position
-  // append if index not given or index is list length
+  /**
+   * Inserts the specified element at the specified position in this list.
+   * Shifts the element currently at that position (if any) and any subsequent elements to the right (adds one to their indices).
+   * If index not given, adds element to end of list
+   * @param element element to be inserted
+   * @param index index at which the specified element is to be inserted
+   */
   public add(element: T, index?: number) {
     if (index !== undefined && typeof index !== 'number') {
       throw new Error('invalid index type');
@@ -58,7 +67,10 @@ export class LinkedList<T> {
     n.next = node;
   }
 
-  // add element to beginning of list
+  /**
+   * Inserts the specified element at the beginning of this list.
+   * @param element the element to add
+   */
   public addFirst(element: T) {
     const node = new this.#_Node(element);
     if (this.#_head === null) {
@@ -72,7 +84,11 @@ export class LinkedList<T> {
     this.#_length++;
   }
 
-  // add element to end of list
+  /**
+   * Appends the specified element to the end of this list.
+   * This method is equivalent to add(element).
+   * @param element
+   */
   public addLast(element: T) {
     const node = new this.#_Node(element);
     if (this.#_head === null) {
