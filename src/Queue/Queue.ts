@@ -9,6 +9,7 @@ export class Queue<T> {
     public next: Node<T> | null = null;
     constructor(public data: T) {}
   };
+
   #_head: INode<T> | null = null; // remove from here
   #_tail: INode<T> | null = null; // add to here
   #_length = 0;

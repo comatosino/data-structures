@@ -11,6 +11,7 @@ export class SinglyLinkedList<T> {
     public next: Node<T> | null = null;
     constructor(public data: T) {}
   };
+
   #_head: INode<T> | null = null;
   #_length = 0;
 

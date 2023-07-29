@@ -8,6 +8,7 @@ export class Stack<T> {
     public next: Node<T> | null = null;
     constructor(public data: T) {}
   };
+
   #_top: INode<T> | null = null;
   #_size = 0;
 
