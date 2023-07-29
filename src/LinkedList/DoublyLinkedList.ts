@@ -159,9 +159,10 @@ export class LinkedList<T> {
   }
 
   /**
-   * Returns true if this list contains the specified element.
+   * Check if list contains given element
    * checks referential equality for objects
    * @param element element whose presence in this list is to be tested
+   * @returns true if this list contains the specified element.
    */
   public contains(element: T) {
     let n = this.#_head;
@@ -209,6 +210,8 @@ export class LinkedList<T> {
   }
 
   /**
+   * Get index of the first occurence of given element
+   * checks referential equality for objects
    * @returns index of the first occurrence of the specified element in this list, or -1 if this list does not contain the element.
    */
   public indexOf(element: T) {
@@ -225,10 +228,21 @@ export class LinkedList<T> {
   }
 
   /**
-   *
+   * Get index of the last occurence of given element
+   * checks referential equality for objects
+   * @returns index of the last occurrence of the specified element in this list, or -1 if this list does not contain the element.
    */
-  public lastIndexOf() {
-    //
+  public lastIndexOf(element: T) {
+    let n = this.#_tail;
+    let i = this.#_size - 1;
+    while (n != null) {
+      if (n.data === element) {
+        return i;
+      }
+      n = n.next;
+      i--;
+    }
+    return -1;
   }
 
   public toArray() {
