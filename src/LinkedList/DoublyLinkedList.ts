@@ -6,6 +6,7 @@ interface INode<T> {
 
 /**
  * Doubly Linked List implementation
+ *
  * Emulates behavior of Java 8 LinkedList class
  */
 export class LinkedList<T> {
@@ -110,6 +111,25 @@ export class LinkedList<T> {
     this.#_head = null;
     this.#_tail = null;
     this.#_size = 0;
+  }
+
+  /**
+   * Returns a shallow copy of this LinkedList.
+   * @param deep if true, returns a deep copy of this LinkedList
+   */
+  clone(deep = false) {
+    const copy = new LinkedList();
+    if (deep) {
+      let n = this.#_head;
+      while (n !== null) {
+        copy.add(n.data);
+        n = n.next;
+      }
+    } else {
+      copy.#_head = this.#_head;
+      copy.#_tail = this.#_tail;
+    }
+    return copy;
   }
 
   /**
