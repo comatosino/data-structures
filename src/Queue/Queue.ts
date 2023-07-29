@@ -1,14 +1,17 @@
-import { SinglyLinkedNode as Node } from "../Node";
+import { SinglyLinkedNode as Node } from '../Node';
 
 // FIFO
 export class Queue<T> {
-  #_length: number = 0;
   #_head: Node<T> | null = null; // remove from here
   #_tail: Node<T> | null = null; // add to here
+  #_length = 0;
 
   constructor(init?: T | T[], ...rest: T[]) {
-    const args = Array.isArray(init) ? init : (Array.from(arguments) as T[]);
-    args.forEach(this.enqueue, this);
+    if (Array.isArray(init)) {
+      init.forEach(this.enqueue, this);
+    } else if (init) {
+      [init, ...rest].forEach(this.enqueue, this);
+    }
   }
 
   get length() {
@@ -51,12 +54,12 @@ export class Queue<T> {
   }
 
   public toString() {
-    let result = "";
+    let result = '';
     let current = this.#_head;
     while (current != null) {
       result += current.data;
       if (current.next !== null) {
-        result += " -> ";
+        result += ' -> ';
       }
       current = current.next;
     }

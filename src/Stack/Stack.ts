@@ -1,12 +1,15 @@
-import { SinglyLinkedNode as Node } from "../Node";
+import { SinglyLinkedNode as Node } from '../Node';
 
 export class Stack<T> {
   #_top: Node<T> | null = null;
-  #_size: number = 0;
+  #_size = 0;
 
   constructor(init?: T | T[], ...rest: T[]) {
-    const args = Array.isArray(init) ? init : (Array.from(arguments) as T[]);
-    args.forEach(this.push, this);
+    if (Array.isArray(init)) {
+      init.forEach(this.push, this);
+    } else if (init) {
+      [init, ...rest].forEach(this.push, this);
+    }
   }
 
   get size() {
@@ -39,12 +42,12 @@ export class Stack<T> {
   }
 
   public toString() {
-    let result = "";
+    let result = '';
     let current = this.#_top;
     while (current != null) {
       result += current.data;
       if (current.next !== null) {
-        result += " -> ";
+        result += ' -> ';
       }
       current = current.next;
     }
