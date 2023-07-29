@@ -1,7 +1,7 @@
 import { describe, it } from 'mocha';
 import { expect } from 'chai';
 
-import { DoublyLinkedList as LinkedList } from '.';
+import { LinkedList } from '.';
 
 describe('Doubly Linked List', function () {
   it('creates a new list from no arguments', function () {
