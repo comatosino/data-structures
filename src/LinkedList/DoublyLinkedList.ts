@@ -7,9 +7,9 @@ export class DoublyLinkedList<T> {
 
   constructor(init?: T | T[], ...rest: T[]) {
     if (Array.isArray(init)) {
-      init.forEach(this.append.bind(this));
+      init.forEach(this.addFirst.bind(this));
     } else if (init) {
-      [init, ...rest].forEach(this.append.bind(this));
+      [init, ...rest].forEach(this.addFirst.bind(this));
     }
   }
 
@@ -21,77 +21,36 @@ export class DoublyLinkedList<T> {
   }
 
   // add at given position
-  // append if index not given
-  public add(element: T, index: number) {
-    if (typeof index !== 'number' || index < 0) {
-      throw new Error('index must be a positive integer');
-    }
-    if (index === 0) {
-      return this.prepend(element);
-    }
-    if (index === this.#_length - 1) {
-      return this.append(element);
-    }
-    // traverse the list and insert
-    this.#_length++;
-  }
+  // append if index not given or index is list length
+  // public add(element: T, index: number) {}
 
-  // add to head of list
-  prepend(element: T) {
+  // add element to beginning of list
+  addFirst(element: T) {
     const node = new Node(element);
-    node.next = this.#_head;
-    this.#_head = node;
+    if (this.#_head === null) {
+      this.#_head = node;
+      this.#_tail = node;
+    } else {
+      this.#_head.prev = node;
+      node.next = this.#_head;
+      this.#_head = node;
+    }
     this.#_length++;
   }
 
-  // add to end of list
-  public append(element: T) {
+  // add element to end of list
+  addLast(element: T) {
     const node = new Node(element);
     if (this.#_head === null) {
       this.#_head = node;
     }
     if (this.#_tail !== null) {
       this.#_tail.next = node;
+      node.prev = this.#_tail;
     }
     this.#_tail = node;
     this.#_length++;
   }
-
-  clear() {
-    this.#_head = null;
-    this.#_tail = null;
-    this.#_length = 0;
-  }
-
-  clone() {
-    return new DoublyLinkedList(this.toArray());
-  }
-
-  // contains() {}
-
-  // get() {}
-
-  // getFirst() {}
-
-  // getLast() {}
-
-  // indexOf() {}
-
-  // lastIndexOf() {}
-
-  // peekFirst() {}
-
-  // peekLast() {}
-
-  // remove() {}
-
-  // removeFirst() {}
-
-  // removeLast() {}
-
-  // removeLastOccurence() {}
-
-  // set() {}
 
   toArray() {
     const result = [] as T[];
@@ -107,12 +66,23 @@ export class DoublyLinkedList<T> {
     let result = '';
     let current = this.#_head;
     while (current !== null) {
+      // console.log(current);
       result += current.data;
       if (current.next !== null) {
-        result += ' -> ';
+        result += ' <-> ';
       }
       current = current.next;
     }
     return result;
   }
 }
+
+const list = new DoublyLinkedList();
+list.addLast(3); // [3]
+list.addLast(77); // [3,77]
+list.addFirst(1); // [1,3,77]
+list.addLast(42); // [1,3,77,42]
+list.addFirst(2); // [2,1,3,77,42]
+
+console.log(list.toArray());
+console.log(list.toString());
