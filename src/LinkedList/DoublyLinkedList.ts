@@ -103,6 +103,12 @@ export class LinkedList<T> {
     this.#_size++;
   }
 
+  clear() {
+    this.#_head = null;
+    this.#_tail = null;
+    this.#_size = 0;
+  }
+
   /**
    * Returns true if this list contains the specified element.
    * checks referential equality for objects
