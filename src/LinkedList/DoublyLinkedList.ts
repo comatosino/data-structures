@@ -17,7 +17,7 @@ export class LinkedList<T> {
 
   #_head: INode<T> | null = null;
   #_tail: INode<T> | null = null;
-  #_length = 0;
+  #_size = 0;
 
   constructor(init?: T | T[], ...rest: T[]) {
     if (Array.isArray(init)) {
@@ -28,10 +28,10 @@ export class LinkedList<T> {
   }
 
   /**
-   * @returns number of elements in the list
+   * @returns the number of elements in this list.
    */
-  get length() {
-    return this.#_length;
+  get size() {
+    return this.#_size;
   }
 
   /**
@@ -45,13 +45,13 @@ export class LinkedList<T> {
     if (index !== undefined && typeof index !== 'number') {
       throw new Error('invalid index type');
     }
-    if (index && (index < 0 || index > this.#_length)) {
+    if (index && (index < 0 || index > this.#_size)) {
       throw new Error('index out of bounds');
     }
     if (index === 0) {
       return this.addFirst(element);
     }
-    if (this.#_head === null || index === undefined || index === this.#_length) {
+    if (this.#_head === null || index === undefined || index === this.#_size) {
       return this.addLast(element);
     }
     let i = 0;
@@ -65,6 +65,7 @@ export class LinkedList<T> {
     node.prev = n;
     n.next!.prev = node;
     n.next = node;
+    this.#_size++;
   }
 
   /**
@@ -81,13 +82,13 @@ export class LinkedList<T> {
       node.next = this.#_head;
       this.#_head = node;
     }
-    this.#_length++;
+    this.#_size++;
   }
 
   /**
    * Appends the specified element to the end of this list.
    * This method is equivalent to add(element).
-   * @param element
+   * @param element the element to add
    */
   public addLast(element: T) {
     const node = new this.#_Node(element);
@@ -99,7 +100,23 @@ export class LinkedList<T> {
       node.prev = this.#_tail;
     }
     this.#_tail = node;
-    this.#_length++;
+    this.#_size++;
+  }
+
+  /**
+   * Returns true if this list contains the specified element.
+   * checks referential equality for objects
+   * @param element element whose presence in this list is to be tested
+   */
+  public contains(element: T) {
+    let n = this.#_head;
+    while (n !== null) {
+      if (n.data === element) {
+        return true;
+      }
+      n = n.next;
+    }
+    return false;
   }
 
   public toArray() {
