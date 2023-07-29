@@ -1,7 +1,14 @@
-import { SinglyLinkedNode as Node } from '../Node';
+interface INode<T> {
+  data: T;
+  next: INode<T> | null;
+}
 
 export class Stack<T> {
-  #_top: Node<T> | null = null;
+  #_Node = class Node<T> implements INode<T> {
+    public next: Node<T> | null = null;
+    constructor(public data: T) {}
+  };
+  #_top: INode<T> | null = null;
   #_size = 0;
 
   constructor(init?: T | T[], ...rest: T[]) {
@@ -25,7 +32,7 @@ export class Stack<T> {
   }
 
   public push(data: T) {
-    const node = new Node(data);
+    const node = new this.#_Node(data);
     node.next = this.#_top;
     this.#_top = node;
     this.#_size++;

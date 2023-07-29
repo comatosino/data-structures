@@ -1,9 +1,16 @@
-import { SinglyLinkedNode as Node } from '../Node';
+interface INode<T> {
+  data: T;
+  next: INode<T> | null;
+}
 
 // FIFO
 export class Queue<T> {
-  #_head: Node<T> | null = null; // remove from here
-  #_tail: Node<T> | null = null; // add to here
+  #_Node = class Node<T> implements INode<T> {
+    public next: Node<T> | null = null;
+    constructor(public data: T) {}
+  };
+  #_head: INode<T> | null = null; // remove from here
+  #_tail: INode<T> | null = null; // add to here
   #_length = 0;
 
   constructor(init?: T | T[], ...rest: T[]) {
@@ -28,7 +35,7 @@ export class Queue<T> {
 
   // add data to tail
   public enqueue(data: T) {
-    const node = new Node(data);
+    const node = new this.#_Node(data);
     if (this.#_head === null) {
       this.#_head = node;
     }
