@@ -148,6 +148,14 @@ export class LinkedList<T> {
     return false;
   }
 
+  /**
+   * Retrieves, but does not remove, the head (first element) of this list.
+   * @returns the head of this list; null if list is empty
+   */
+  public element() {
+    return this.#_head ? this.#_head.data : null;
+  }
+
   public toArray() {
     const result = [] as T[];
     let current = this.#_head;
