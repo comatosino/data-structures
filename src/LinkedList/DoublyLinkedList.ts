@@ -25,7 +25,7 @@ export class DoublyLinkedList<T> {
   // public add(element: T, index: number) {}
 
   // add element to beginning of list
-  addFirst(element: T) {
+  public addFirst(element: T) {
     const node = new Node(element);
     if (this.#_head === null) {
       this.#_head = node;
@@ -39,7 +39,7 @@ export class DoublyLinkedList<T> {
   }
 
   // add element to end of list
-  addLast(element: T) {
+  public addLast(element: T) {
     const node = new Node(element);
     if (this.#_head === null) {
       this.#_head = node;
@@ -52,7 +52,7 @@ export class DoublyLinkedList<T> {
     this.#_length++;
   }
 
-  toArray() {
+  public toArray() {
     const result = [] as T[];
     let current = this.#_head;
     while (current !== null) {
