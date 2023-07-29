@@ -56,7 +56,7 @@ export class Queue<T> {
   public toString() {
     let result = '';
     let current = this.#_head;
-    while (current != null) {
+    while (current !== null) {
       result += current.data;
       if (current.next !== null) {
         result += ' -> ';
