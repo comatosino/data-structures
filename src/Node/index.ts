@@ -1,1 +1,1 @@
-export { SinglyLinkedNode, DoublyLinkedNode } from "./Node";
+export { SinglyLinkedNode, DoublyLinkedNode } from './Node';
