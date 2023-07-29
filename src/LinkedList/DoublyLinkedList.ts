@@ -1,15 +1,25 @@
-import { DoublyLinkedNode as Node } from '../Node';
+interface INode<T> {
+  data: T;
+  prev: INode<T> | null;
+  next: INode<T> | null;
+}
 
-export class DoublyLinkedList<T> {
-  #_head: Node<T> | null = null;
-  #_tail: Node<T> | null = null;
+// Doubly Linked List
+export class LinkedList<T> {
+  #_Node = class Node<T> implements INode<T> {
+    public prev: Node<T> | null = null;
+    public next: Node<T> | null = null;
+    constructor(public data: T) {}
+  };
+  #_head: INode<T> | null = null;
+  #_tail: INode<T> | null = null;
   #_length = 0;
 
   constructor(init?: T | T[], ...rest: T[]) {
     if (Array.isArray(init)) {
-      init.forEach(this.addFirst.bind(this));
+      init.forEach(this.addLast.bind(this));
     } else if (init) {
-      [init, ...rest].forEach(this.addFirst.bind(this));
+      [init, ...rest].forEach(this.addLast.bind(this));
     }
   }
 
@@ -22,11 +32,35 @@ export class DoublyLinkedList<T> {
 
   // add at given position
   // append if index not given or index is list length
-  // public add(element: T, index: number) {}
+  public add(element: T, index?: number) {
+    if (index !== undefined && typeof index !== 'number') {
+      throw new Error('invalid index type');
+    }
+    if (index && (index < 0 || index > this.#_length)) {
+      throw new Error('index out of bounds');
+    }
+    if (index === 0) {
+      return this.addFirst(element);
+    }
+    if (this.#_head === null || index === undefined || index === this.#_length) {
+      return this.addLast(element);
+    }
+    let i = 0;
+    let n: INode<T> | null = this.#_head;
+    while (i < index - 1) {
+      n = n!.next!;
+      i++;
+    }
+    const node = new this.#_Node(element);
+    node.next = n.next;
+    node.prev = n;
+    n.next!.prev = node;
+    n.next = node;
+  }
 
   // add element to beginning of list
   public addFirst(element: T) {
-    const node = new Node(element);
+    const node = new this.#_Node(element);
     if (this.#_head === null) {
       this.#_head = node;
       this.#_tail = node;
@@ -40,7 +74,7 @@ export class DoublyLinkedList<T> {
 
   // add element to end of list
   public addLast(element: T) {
-    const node = new Node(element);
+    const node = new this.#_Node(element);
     if (this.#_head === null) {
       this.#_head = node;
     }
@@ -66,7 +100,6 @@ export class DoublyLinkedList<T> {
     let result = '';
     let current = this.#_head;
     while (current !== null) {
-      // console.log(current);
       result += current.data;
       if (current.next !== null) {
         result += ' <-> ';
@@ -76,13 +109,3 @@ export class DoublyLinkedList<T> {
     return result;
   }
 }
-
-const list = new DoublyLinkedList();
-list.addLast(3); // [3]
-list.addLast(77); // [3,77]
-list.addFirst(1); // [1,3,77]
-list.addLast(42); // [1,3,77,42]
-list.addFirst(2); // [2,1,3,77,42]
-
-console.log(list.toArray());
-console.log(list.toString());
