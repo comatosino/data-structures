@@ -3,14 +3,15 @@ interface INode<T> {
   next: INode<T> | null;
 }
 
+// LIFO
 export class Stack<T> {
+  #_top: INode<T> | null = null;
+  #_size = 0;
+
   #_Node = class Node<T> implements INode<T> {
     public next: Node<T> | null = null;
     constructor(public data: T) {}
   };
-
-  #_top: INode<T> | null = null;
-  #_size = 0;
 
   constructor(init?: T | T[], ...rest: T[]) {
     if (Array.isArray(init)) {

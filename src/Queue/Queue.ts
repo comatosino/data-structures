@@ -5,14 +5,14 @@ interface INode<T> {
 
 // FIFO
 export class Queue<T> {
+  #_head: INode<T> | null = null; // remove from here
+  #_tail: INode<T> | null = null; // add to here
+  #_length = 0;
+
   #_Node = class Node<T> implements INode<T> {
     public next: Node<T> | null = null;
     constructor(public data: T) {}
   };
-
-  #_head: INode<T> | null = null; // remove from here
-  #_tail: INode<T> | null = null; // add to here
-  #_length = 0;
 
   constructor(init?: T | T[], ...rest: T[]) {
     if (Array.isArray(init)) {
