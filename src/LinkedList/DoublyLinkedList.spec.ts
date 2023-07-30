@@ -96,7 +96,7 @@ describe('Doubly Linked List', function () {
     expect(list.size).to.equal(0);
   });
 
-  test('clone() shallow copy', function () {
+  test('clone() returns a shallow copy', function () {
     const element = 42;
     const data = [1, 2, 3];
     const list = new LinkedList(data);
@@ -110,7 +110,7 @@ describe('Doubly Linked List', function () {
     });
   });
 
-  test('clone() deep copy', function () {
+  test('clone(true) returns a deep copy', function () {
     const element = 42;
     const data = [1, 2, 3];
     const list = new LinkedList(data);
@@ -123,13 +123,43 @@ describe('Doubly Linked List', function () {
     expect(clone.get(1)).to.equal(element);
   });
 
-  // test('contains()', function () {});
+  test('contains() tests existence of an element', function () {
+    const element = { foo: 'bar' };
+    const data = [{ baz: 'bing' }, element, { bat: 'bop' }];
+    const list = new LinkedList(data);
 
-  // test('get()', function () {});
+    expect(list.contains(element)).to.be.true;
+  });
 
-  // test('getFirst()', function () {});
+  test('get() returns first element', function () {
+    const data = [1, 2, 3];
+    const list = new LinkedList(data);
 
-  // test('getlast()', function () {});
+    expect(list.get()).to.equal(data[0]);
+  });
+
+  test('get(index) returns element at given index', function () {
+    const data = [1, 2, 3];
+    const list = new LinkedList(data);
+
+    data.forEach((e, i) => {
+      expect(list.get(i)).to.equal(e);
+    });
+  });
+
+  test('getFirst() returns element at head of list', function () {
+    const data = [1, 2, 3];
+    const list = new LinkedList(data);
+
+    expect(list.getFirst()).to.equal(data[0]);
+  });
+
+  test('getlast() returns element at tail of list', function () {
+    const data = [1, 2, 3];
+    const list = new LinkedList(data);
+
+    expect(list.getlast()).to.equal(data[data.length - 1]);
+  });
 
   // test('indexOf()', function () {});
 
