@@ -8,15 +8,15 @@ interface INode<T> {
  * Doubly Linked List implementation
  */
 export class LinkedList<T> {
-  #_Node = class Node<T> implements INode<T> {
-    public prev: Node<T> | null = null;
-    public next: Node<T> | null = null;
-    constructor(public data: T) {}
-  };
-
   #_head: INode<T> | null = null;
   #_tail: INode<T> | null = null;
   #_size = 0;
+
+  #_Node = class implements INode<T> {
+    public prev: INode<T> | null = null;
+    public next: INode<T> | null = null;
+    constructor(public data: T) {}
+  };
 
   constructor(init?: T | T[], ...rest: T[]) {
     if (Array.isArray(init)) {
@@ -40,7 +40,7 @@ export class LinkedList<T> {
    * @throws Error if index not of type number
    * @throws Error if index index < 0 || index >= size
    */
-  #_get(index: number) {
+  #_getNode(index: number) {
     if (typeof index !== 'number') {
       throw new Error('invalid index type');
     }
@@ -49,14 +49,11 @@ export class LinkedList<T> {
     }
     let n = this.#_head;
     let i = 0;
-    while (i <= index) {
-      if (i === index) {
-        return n;
-      }
+    while (i !== index && i <= index) {
       n = n!.next;
       i++;
     }
-    return null;
+    return n;
   }
 
   /**
@@ -76,12 +73,12 @@ export class LinkedList<T> {
       throw new Error('index out of bounds');
     }
     if (index === 0) {
-      return this.addLast(element);
+      return this.addFirst(element);
     }
     if (this.#_head === null || index === undefined || index === this.#_size) {
       return this.addLast(element);
     }
-    const n = this.#_get(index - 1);
+    const n = this.#_getNode(index - 1);
     const node = new this.#_Node(element);
 
     node.next = n!.next;
@@ -130,7 +127,7 @@ export class LinkedList<T> {
   /**
    * Removes all of the elements from this list.
    */
-  clear() {
+  public clear() {
     this.#_head = null;
     this.#_tail = null;
     this.#_size = 0;
@@ -141,7 +138,7 @@ export class LinkedList<T> {
    * @param deep if true, returns a deep copy of this LinkedList
    * @returns by default, a shallow copy of this LinkedList
    */
-  clone(deep = false) {
+  public clone(deep = false) {
     const copy = new LinkedList();
     // deep copy -> add new nodes
     // shallow copy -> use these nodes
@@ -176,14 +173,6 @@ export class LinkedList<T> {
   }
 
   /**
-   * Retrieves, but does not remove, the head (first element) of this list.
-   * @returns the data at the head of this list, or null if the list is empty
-   */
-  public element() {
-    return this.#_head ? this.#_head.data : null;
-  }
-
-  /**
    * Returns the element at the specified position in this list.
    * @param index index of the element to return
    * @returns the element at the specified position in this list
@@ -191,7 +180,7 @@ export class LinkedList<T> {
    * @throws Error if index out of bounds
    */
   public get(index: number) {
-    const n = this.#_get(index);
+    const n = this.#_getNode(index);
     return n ? n.data : null;
   }
 
@@ -245,6 +234,118 @@ export class LinkedList<T> {
     return -1;
   }
 
+  /**
+   *
+   * @param index
+   * @returns
+   */
+  public remove(index?: number) {
+    const n = this.#_getNode(index === undefined ? 0 : index);
+    if (n === null) {
+      return null;
+    }
+    if (n === this.#_head) {
+      return this.removeFirst();
+    }
+    if (n === this.#_tail) {
+      return this.removeLast();
+    }
+    const data = n.data;
+    n.prev!.next = n.next;
+    n.next!.prev = n.prev;
+    this.#_size--;
+    return data;
+  }
+
+  /**
+   *
+   * @returns
+   */
+  public removeFirst() {
+    if (this.#_head === null) {
+      return null;
+    }
+    const data = this.#_head.data;
+    this.#_head = this.#_head.next;
+    if (this.#_head === null) {
+      this.#_tail = null;
+    }
+    this.#_size--;
+    return data;
+  }
+
+  /**
+   *
+   * @param element
+   * @returns
+   */
+  public removeFirstOccurence(element: T) {
+    let n = this.#_head;
+    let i = 0;
+    while (n !== null) {
+      if (n.data === element) {
+        this.remove(i);
+        return true;
+      }
+      n = n.next;
+      i++;
+    }
+    return false;
+  }
+
+  /**
+   *
+   * @returns
+   */
+  public removeLast() {
+    if (this.#_tail === null) {
+      return null;
+    }
+    const data = this.#_tail.data;
+    this.#_tail = this.#_tail.prev;
+    if (this.#_tail !== null) {
+      this.#_tail.next = null;
+    }
+    this.#_size--;
+    return data;
+  }
+
+  /**
+   *
+   * @param element
+   * @returns
+   */
+  public removeLastOccurrence(element: T) {
+    let n = this.#_tail;
+    let i = this.#_size - 1;
+    while (n !== null) {
+      if (n.data === element) {
+        this.remove(i);
+        return true;
+      }
+      n = n.prev;
+      i--;
+    }
+    return false;
+  }
+
+  /**
+   *  Replaces the element at the specified position in this list with the specified element.
+   * @param index
+   * @param element
+   * @returns the element previously at the specified position
+   */
+  public set(index: number, element: T) {
+    const n = this.#_getNode(index) as INode<T>;
+    const data = n.data;
+    n.data = element;
+    return data;
+  }
+
+  /**
+   *
+   * @returns
+   */
   public toArray() {
     const result = [] as T[];
     let current = this.#_head;
@@ -255,6 +356,10 @@ export class LinkedList<T> {
     return result;
   }
 
+  /**
+   *
+   * @returns
+   */
   public toString() {
     let result = '';
     let current = this.#_head;
