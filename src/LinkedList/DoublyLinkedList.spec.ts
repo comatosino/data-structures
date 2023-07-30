@@ -161,30 +161,84 @@ describe('Doubly Linked List', function () {
     expect(list.getlast()).to.equal(data[data.length - 1]);
   });
 
-  test('indexOf()', function () {
+  test('indexOf() returns index of first found element starting from head', function () {
     const idx = 1;
-    const data = [1, 2, 3];
+    const data = [1, 2, 3, 2, 1];
     const list = new LinkedList(data);
 
-    expect(list.indexOf(data[idx])).to.equal(idx);
+    expect(list.indexOf(data[idx])).to.equal(data.indexOf(data[idx]));
   });
 
-  test('lastIndexOf()', function () {
+  test('lastIndexOf() returns last index of given element', function () {
     const data = [1, 2, 3, 2, 8, 5, 2, 7, 3];
     const list = new LinkedList(data);
 
     expect(list.lastIndexOf(2)).to.equal(data.lastIndexOf(2));
   });
 
-  // test('remove()', function () {});
+  test('remove() removes and returns first element', function () {
+    const data = [1, 2, 3, 4, 5];
+    const list = new LinkedList(data);
 
-  // test('removeFirst()', function () {});
+    list.remove();
 
-  // test('removeFirstOccurence()', function () {});
+    expect(list.toArray()).to.deep.equal([2, 3, 4, 5]);
+  });
 
-  // test('removeLast()', function () {});
+  test('remove(index) removes and returns element at given index', function () {
+    const data = [1, 2, 3];
 
-  // test('removeLastOccurrence()', function () {});
+    let list = new LinkedList(data);
+    let result = list.remove(0);
+    expect(list.toArray()).to.deep.equal([2, 3]);
+    expect(result).to.equal(data[0]);
+
+    list = new LinkedList(data);
+    result = list.remove(1);
+    expect(list.toArray()).to.deep.equal([1, 3]);
+    expect(result).to.equal(data[1]);
+
+    list = new LinkedList(data);
+    result = list.remove(2);
+    expect(list.toArray()).to.deep.equal([1, 2]);
+    expect(result).to.equal(data[2]);
+  });
+
+  test('removeFirst() removes and returns head element', function () {
+    const data = [1, 2, 3, 4, 5];
+    const list = new LinkedList(data);
+
+    const result = list.removeFirst();
+
+    expect(result).to.equal(data[0]);
+  });
+
+  test('removeFirstOccurence() removes first found occurence of given element', function () {
+    const data = [1, 2, 3, 2, 1];
+    const list = new LinkedList(data);
+
+    list.removeFirstOccurence(2);
+
+    expect(list.toArray()).to.deep.equal([1, 3, 2, 1]);
+  });
+
+  test('removeLast()  removes and returns tail element', function () {
+    const data = [1, 2, 3, 4, 5];
+    const list = new LinkedList(data);
+
+    const result = list.removeLast();
+
+    expect(result).to.equal(data[data.length - 1]);
+  });
+
+  test('removeLastOccurrence() removes last found occurence of given element', function () {
+    const data = [1, 2, 3, 2, 1];
+    const list = new LinkedList(data);
+
+    list.removeLastOccurrence(2);
+
+    expect(list.toArray()).to.deep.equal([1, 2, 3, 1]);
+  });
 
   test('set()', function () {
     const data = [1, 2, 3];
