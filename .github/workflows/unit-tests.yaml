@@ -1,4 +1,4 @@
-name: Unit tests
+name: ci-cd
 
 on:
   push:
@@ -7,19 +7,19 @@ on:
     branches: [main]
 
 jobs:
-  ci-cd:
+  unit-tests:
     runs-on: ubuntu-latest
     steps:
-      - name: Clone repo
+      - name: Clone
         uses: actions/checkout@v3
 
-      - name: Setup Node
+      - name: Setup
         uses: actions/setup-node@v3
         with:
           node-version: 'latest'
           cache: 'yarn'
 
-      - name: Install dependencies
+      - name: Install
         run: yarn
 
       - name: Lint

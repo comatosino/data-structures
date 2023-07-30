@@ -1,10 +1,18 @@
-import { SinglyLinkedNode as Node } from '../Node';
+interface INode<T> {
+  data: T;
+  next: INode<T> | null;
+}
 
 /**
  * simple implementation of a singly linked list
  */
 export class SinglyLinkedList<T> {
-  #_head: Node<T> | null = null;
+  #_Node = class Node<T> implements INode<T> {
+    public next: Node<T> | null = null;
+    constructor(public data: T) {}
+  };
+
+  #_head: INode<T> | null = null;
   #_length = 0;
 
   constructor(init?: T | T[], ...rest: T[]) {
@@ -24,7 +32,7 @@ export class SinglyLinkedList<T> {
    * @param data
    */
   append(data: T) {
-    const node = new Node(data);
+    const node = new this.#_Node(data);
     if (this.#_head === null) {
       this.#_head = node;
     } else {

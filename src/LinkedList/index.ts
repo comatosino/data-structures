@@ -1,2 +1,2 @@
 export { SinglyLinkedList } from './SinglyLinkedList';
-// export { DoublyLinkedList } from './DoublyLinkedList';
+export { LinkedList } from './DoublyLinkedList';

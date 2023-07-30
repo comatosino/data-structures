@@ -1,8 +1,17 @@
-import { SinglyLinkedNode as Node } from '../Node';
+interface INode<T> {
+  data: T;
+  next: INode<T> | null;
+}
 
+// LIFO
 export class Stack<T> {
-  #_top: Node<T> | null = null;
+  #_top: INode<T> | null = null;
   #_size = 0;
+
+  #_Node = class Node<T> implements INode<T> {
+    public next: Node<T> | null = null;
+    constructor(public data: T) {}
+  };
 
   constructor(init?: T | T[], ...rest: T[]) {
     if (Array.isArray(init)) {
@@ -25,7 +34,7 @@ export class Stack<T> {
   }
 
   public push(data: T) {
-    const node = new Node(data);
+    const node = new this.#_Node(data);
     node.next = this.#_top;
     this.#_top = node;
     this.#_size++;
@@ -44,7 +53,7 @@ export class Stack<T> {
   public toString() {
     let result = '';
     let current = this.#_top;
-    while (current != null) {
+    while (current !== null) {
       result += current.data;
       if (current.next !== null) {
         result += ' -> ';
