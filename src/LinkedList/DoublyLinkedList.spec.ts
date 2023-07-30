@@ -65,7 +65,7 @@ describe('Doubly Linked List', function () {
     // test out of bounds
   });
 
-  test('addFirst()', function () {
+  test('addFirst() adds element to beginning of list', function () {
     const element = 42;
     const data = [1, 2, 3];
     const list = new LinkedList(data);
@@ -75,7 +75,7 @@ describe('Doubly Linked List', function () {
     expect(list.toArray()).to.deep.equal([element, ...data]);
   });
 
-  test('addLast()', function () {
+  test('addLast() appends element to end of list', function () {
     const element = 42;
     const data = [1, 2, 3];
     const list = new LinkedList(data);
@@ -85,11 +85,43 @@ describe('Doubly Linked List', function () {
     expect(list.toArray()).to.deep.equal([...data, element]);
   });
 
-  // test('clear()', function () {});
+  test('clear() removes all elements from the list', function () {
+    const data = [1, 2, 3];
+    const list = new LinkedList(data);
 
-  // test('clone() shallow copy', function () {});
+    expect(list.size).to.equal(data.length);
 
-  // test('clone() deep copy', function () {});
+    list.clear();
+
+    expect(list.size).to.equal(0);
+  });
+
+  test('clone() shallow copy', function () {
+    const element = 42;
+    const data = [1, 2, 3];
+    const list = new LinkedList(data);
+
+    const clone = list.clone();
+    clone.set(1, element);
+
+    // updating a clone node updates the source too
+    data.forEach((_e, i) => {
+      expect(list.get(i)).to.equal(clone.get(i));
+    });
+  });
+
+  test('clone() deep copy', function () {
+    const element = 42;
+    const data = [1, 2, 3];
+    const list = new LinkedList(data);
+
+    const clone = list.clone(true);
+    clone.set(1, element); // [1, 42, 3]
+
+    // updating clone does not update source node
+    expect(list.get(1)).to.equal(data[1]);
+    expect(clone.get(1)).to.equal(element);
+  });
 
   // test('contains()', function () {});
 
