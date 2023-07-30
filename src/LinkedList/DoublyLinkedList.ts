@@ -229,7 +229,7 @@ export class LinkedList<T> {
       if (n.data === element) {
         return i;
       }
-      n = n.next;
+      n = n.prev;
       i--;
     }
     return -1;
