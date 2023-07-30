@@ -186,7 +186,15 @@ describe('Doubly Linked List', function () {
 
   // test('removeLastOccurrence()', function () {});
 
-  // test('set()', function () {});
+  test('set()', function () {
+    const data = [1, 2, 3];
+    const list = new LinkedList(data);
+
+    data.reverse().forEach((e, i) => {
+      list.set(i, e);
+      expect(list.get(i)).to.equal(e);
+    });
+  });
 
   // test('toArray()', function () {});
 
