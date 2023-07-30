@@ -180,8 +180,8 @@ export class LinkedList<T> {
    * @throws Error if index not of type number
    * @throws Error if index out of bounds
    */
-  public get(index: number) {
-    const n = this.#_getNode(index);
+  public get(index?: number) {
+    const n = this.#_getNode(index ?? 0);
     return n ? n.data : null;
   }
 
