@@ -161,9 +161,20 @@ describe('Doubly Linked List', function () {
     expect(list.getlast()).to.equal(data[data.length - 1]);
   });
 
-  // test('indexOf()', function () {});
+  test('indexOf()', function () {
+    const idx = 1;
+    const data = [1, 2, 3];
+    const list = new LinkedList(data);
 
-  // test('lastIndexOf()', function () {});
+    expect(list.indexOf(data[idx])).to.equal(idx);
+  });
+
+  test('lastIndexOf()', function () {
+    const data = [1, 2, 3, 2, 8, 5, 2, 7, 3];
+    const list = new LinkedList(data);
+
+    expect(list.lastIndexOf(2)).to.equal(data.lastIndexOf(2));
+  });
 
   // test('remove()', function () {});
 
