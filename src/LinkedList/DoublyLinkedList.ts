@@ -139,7 +139,7 @@ export class LinkedList<T> {
    * @returns by default, a shallow copy of this LinkedList
    */
   public clone(deep = false) {
-    const copy = new LinkedList();
+    const copy = new LinkedList<T>();
     // deep copy -> add new nodes
     // shallow copy -> use these nodes
     if (deep) {
@@ -152,6 +152,7 @@ export class LinkedList<T> {
       copy.#_head = this.#_head;
       copy.#_tail = this.#_tail;
     }
+    copy.#_size = this.#_size;
     return copy;
   }
 
@@ -235,9 +236,9 @@ export class LinkedList<T> {
   }
 
   /**
-   *
-   * @param index
-   * @returns
+   * Removes the element at the given index
+   * @param index position of the element to be removed
+   * @returns element at given index if found, else, null
    */
   public remove(index?: number) {
     const n = this.#_getNode(index === undefined ? 0 : index);
@@ -258,8 +259,8 @@ export class LinkedList<T> {
   }
 
   /**
-   *
-   * @returns
+   * Removes and returns head element
+   * @returns element at the head of the list
    */
   public removeFirst() {
     if (this.#_head === null) {
@@ -275,9 +276,9 @@ export class LinkedList<T> {
   }
 
   /**
-   *
-   * @param element
-   * @returns
+   * Removes first found occurence of given element
+   * @param element the element to be removed
+   * @returns true if element removed
    */
   public removeFirstOccurence(element: T) {
     let n = this.#_head;
@@ -294,8 +295,8 @@ export class LinkedList<T> {
   }
 
   /**
-   *
-   * @returns
+   * Removes and returns tail element
+   * @returns element at the tail of the list
    */
   public removeLast() {
     if (this.#_tail === null) {
@@ -311,9 +312,9 @@ export class LinkedList<T> {
   }
 
   /**
-   *
-   * @param element
-   * @returns
+   * Removes last found occurence of given element
+   * @param element the element to be removed
+   * @returns true if element removed
    */
   public removeLastOccurrence(element: T) {
     let n = this.#_tail;
@@ -331,8 +332,8 @@ export class LinkedList<T> {
 
   /**
    *  Replaces the element at the specified position in this list with the specified element.
-   * @param index
-   * @param element
+   * @param index index of the element to be updated
+   * @param element the data to put at index
    * @returns the element previously at the specified position
    */
   public set(index: number, element: T) {
@@ -343,8 +344,7 @@ export class LinkedList<T> {
   }
 
   /**
-   *
-   * @returns
+   * @returns an array of this list's elements
    */
   public toArray() {
     const result = [] as T[];
@@ -357,8 +357,7 @@ export class LinkedList<T> {
   }
 
   /**
-   *
-   * @returns
+   * @returns a string representation of this list's elements
    */
   public toString() {
     let result = '';
