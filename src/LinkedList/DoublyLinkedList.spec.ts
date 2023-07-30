@@ -196,7 +196,26 @@ describe('Doubly Linked List', function () {
     });
   });
 
-  // test('toArray()', function () {});
+  test('toArray() returns an array of the list elements', function () {
+    const data = ['a', 'b', 'c', 'd', 'e'];
+    const list = new LinkedList(data);
 
-  // test('toString()', function () {});
+    const result = list.toArray();
+
+    expect(Array.isArray(result)).to.be.true;
+    expect(result).to.deep.equal(data);
+  });
+
+  test('toString() returns a string representation of the list', function () {
+    const data = ['a', 'b', 'c', 'd', 'e'];
+
+    let list = new LinkedList();
+    expect(list.toString()).to.equal('');
+
+    list = new LinkedList(data[0]);
+    expect(list.toString()).to.equal('a');
+
+    list = new LinkedList(data);
+    expect(list.toString()).to.equal('a <-> b <-> c <-> d <-> e');
+  });
 });
