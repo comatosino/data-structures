@@ -7,7 +7,7 @@ interface INode<T> {
 /**
  * Doubly Linked List implementation
  */
-export class LinkedList<T> {
+export class DoublyLinkedList<T> {
   #_head: INode<T> | null = null;
   #_tail: INode<T> | null = null;
   #_size = 0;
@@ -139,7 +139,7 @@ export class LinkedList<T> {
    * @returns by default, a shallow copy of this LinkedList
    */
   public clone(deep = false) {
-    const copy = new LinkedList<T>();
+    const copy = new DoublyLinkedList<T>();
     // deep copy -> add new nodes
     // shallow copy -> use these nodes
     if (deep) {
