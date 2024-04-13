@@ -4,9 +4,6 @@ interface INode<T> {
   next: INode<T> | null;
 }
 
-/**
- * Doubly Linked List implementation
- */
 export class DoublyLinkedList<T> {
   #_head: INode<T> | null = null;
   #_tail: INode<T> | null = null;

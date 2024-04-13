@@ -3,9 +3,6 @@ interface INode<T> {
   next: INode<T> | null;
 }
 
-/**
- * simple implementation of a singly linked list
- */
 export class SinglyLinkedList<T> {
   #_Node = class Node<T> implements INode<T> {
     public next: Node<T> | null = null;
