@@ -1,4 +1,7 @@
-from node import SinglyLinkedNode as Node
+class QueueNode:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
 
 
 class Queue:
@@ -7,8 +10,8 @@ class Queue:
     """
 
     def __init__(self):
-        self._head: Node = None
-        self._tail: Node = None
+        self._head: QueueNode = None
+        self._tail: QueueNode = None
 
     def __str__(self):
         return " -> ".join(map(str, self.to_list()))
@@ -53,7 +56,7 @@ class Queue:
         Params:
             data: The value to add to the queue
         """
-        node = Node(data)
+        node = QueueNode(data)
         if self._head is None:
             self._head = node
         if self._tail is not None:
