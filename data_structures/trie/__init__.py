@@ -13,9 +13,6 @@ class Trie:
                 self.insert(word)
 
     def insert(self, word: str) -> None:
-        """
-        Add a new word to the Trie
-        """
         if not word:
             raise ValueError("'word' must be non-empty str")
 
