@@ -1,73 +1,31 @@
-class Node:
+class StackNode:
     def __init__(self, data):
         self.data = data
-        self.next = None
+        self.next: StackNode = None
 
 
 class Stack:
-    """
-    LIFO
-    """
+    """LIFO"""
 
-    def __init__(self) -> None:
-        self.top: Node = None
+    def __init__(self):
+        self.top: StackNode = None
 
-    def __str__(self) -> str:
-        return " -> ".join(map(str, self.to_list()))
-
-    def to_list(self) -> list:
-        """
-        Cast stack values to list
-
-        Returns:
-            List of stack values
-        """
-        r = []
-        n = self.top
-        while n is not None:
-            r.append(n.data)
-            n = n.next
-        return r
-
-    def is_empty(self):
-        """
-        Check if stack has any values
-
-        Returns:
-            True if stack contains no elements, else False
-        """
+    def isempty(self):
         return self.top is None
 
     def peek(self):
-        """
-        Return, but do not remove, most recently added value
-
-        Returns:
-            Most recent value added to stack
-            None if stack is empty
-        """
-        if self.top is None:
+        if not self.top:
             return None
         return self.top.data
 
-    def pop(self):
-        """
-        Remove and return the top value in the stack
+    def push(self, data):
+        node = StackNode(data)
+        node.next = self.top
+        self.top = node
 
-        Returns:
-            Most recent value added to stack
-            None if stack is empty
-        """
-        if self.top is None:
+    def pop(self, data):
+        if not self.top:
             return None
         data = self.top.data
         self.top = self.top.next
         return data
-
-    def push(self, data):
-        """
-        Add a new value to the top of the stack
-        """
-        node = Node(data)
-        node.next = self.top
-        self.top = node
