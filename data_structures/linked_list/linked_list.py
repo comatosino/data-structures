@@ -8,9 +8,15 @@ from reverse import reverse
 
 
 class LinkedList:
-    def __init__(self):
+    def __init__(self, *args):
         self._head: ListNode = None
         self._size: int = 0
+        for arg in args:
+            if isinstance(arg, list):
+                for el in arg:
+                    self.append(el)
+            else:
+                self.append(arg)
 
     def __str__(self) -> str:
         return str(self._head)
