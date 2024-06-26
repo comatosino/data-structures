@@ -9,4 +9,5 @@ class ListNode:
         while h:
             l.append(h.data)
             h = h.next
-        return " -> ".join(map(str, l))
+        s = " -> ".join(map(str, l))
+        return f"[ {s} ]"
