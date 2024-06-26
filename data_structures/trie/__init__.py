@@ -1,29 +1,29 @@
 class TrieNode:
     def __init__(self, char: str = None):
-        self.character = char
-        self.children = {}
-        self.complete = False
+        self.char = char
+        self.next = {}
+        self.end = False
 
 
 class Trie:
-    def __init__(self, words: list[str] = None) -> None:
+    def __init__(self, words: list[str] = None):
         self.root = TrieNode()
         if words:
             for word in words:
-                self.insert(word)
+                self.add(word)
 
-    def insert(self, word: str) -> None:
-        if not word:
-            raise ValueError("'word' must be non-empty str")
-
+    def add(self, word: str) -> None:
         node = self.root
-
         for char in word:
-            if char in node.children:
-                node = node.children[char]
-            else:
-                new_node = TrieNode(char)
-                node.children[char] = new_node
-                node = new_node
+            if char not in node.next:
+                node.next[char] = TrieNode(char)
+            node = node.next[char]
+        node.end = True
 
-        node.complete = True
+    def has(self, word: str, exact=True) -> bool:
+        node = self.root
+        for char in word:
+            if char not in node.next:
+                return False
+            node = node.next[char]
+        return node.end if exact else True
