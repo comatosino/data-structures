@@ -13,7 +13,6 @@ class TwoStackQueue:
     def __str__(self):
         old = self._old.to_list()
         new = self._new.to_list()
-        print(old, new)
         return " -> ".join(map(str, old + new[::-1]))
 
     def _update(self):
